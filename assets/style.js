@@ -1,6 +1,6 @@
 const start = document.querySelector(".start")
-var questionsElement = document.getElementById("#questions-show")
-const selectChoiceElement = document.getElementById("answers")
+var questionsElement = document.getElementById("questions-show")
+const selectChoiceElement = document.getElementById("select-choice")
 
 let questions =[
     {
@@ -30,6 +30,7 @@ function startQuiz() {
     element.classList.add("secshow");
     start.style.display = "none";
     showQuestions()
+    showChoices()
     console.log(startQuiz)
 }
 function getQuestion() {
@@ -37,6 +38,13 @@ function getQuestion() {
 
 }
 function showQuestions(){
-    questionsElement.textContent = questions;
+    questionsElement.textContent = questions[0].question;
 console.log(showQuestions);
+}
+function showChoices(){
+selectChoiceElement.textContent = questions[0].answers;
+     for(var i = 0; i < answers.lenght; i++) {
+        answers.textContent.correct = answers
+     }
+
 }
