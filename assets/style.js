@@ -1,7 +1,7 @@
 const start = document.querySelector(".start")
 var questionsElement = document.getElementById("questions-show")
 const selectChoiceElement = document.getElementById("select-choice")
-
+var choiceButtons = document.getElementById(".btn")
 let questions =[
     {
         question: 'waht is 2 + 2',
@@ -44,7 +44,7 @@ console.log(showQuestions);
 function showChoices(){
 selectChoiceElement.textContent = questions[0].answers;
      for(var i = 0; i < answers.lenght; i++) {
-        answers.textContent.correct = answers
+        selectChoiceElement.textContent = answers[i]
      }
 
 }
