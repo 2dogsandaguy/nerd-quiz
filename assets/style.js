@@ -1,10 +1,15 @@
-const start = document.querySelector(".start")
+const start = document.querySelector(".start");
 
-var questionsElement = document.getElementById("questions-show")
+var questionsElement = document.getElementById("questions-show");
 
-var selectChoiceElement = document.getElementById("select-choice")
+var selectChoiceElement = document.getElementById("select-choice");
 
-var choiceButtons = document.getElementById(".btn")
+var choiceButtons = document.getElementById(".btn");
+
+var timerElement = document.querySelector(".timer-count");
+
+var win = document.querySelector(".win");
+var lose = document.querySelector(".lose");
 
 let questions = [
     {
@@ -28,15 +33,34 @@ let questions = [
     }
 ]
 
+ var count = 60;
+const timerDisplay = () => {
+   var countdown = setInterval(() => {
+        count--;
+        timerElement.innerHTML = count;
+        if (count >= 0) {
+
+        }
+       
+        if (count === 0){
+            clearInterval(countdown);
+
+        }
+        
+    }, 1000);
+}
+
+    
+
 
 
 function startQuiz() { 
     var element = document.getElementById("hidden");
     element.classList.add("secshow");
     start.style.display = "none";
-    showQuestions()
-    
-    console.log(startQuiz)
+    showQuestions();
+    timerDisplay();
+    console.log(startQuiz);
 }
 function getQuestion() {
     
@@ -48,7 +72,7 @@ function showQuestions(){
      let choice = document.querySelectorAll('.btn');
      console.log(choice);
     choice.forEach(function(element, index){
-     element.textContent = "huge cock"
+     element.textContent = questions[0].answers[index]
      });
      console.log(showQuestions);
 }
