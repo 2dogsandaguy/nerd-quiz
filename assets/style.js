@@ -8,6 +8,7 @@ var choiceButtons = document.querySelectorAll(".btn");
 
 var timerElement = document.querySelector(".timer-count");
 
+var fillerEl = document.querySelector(".win_loss")
 //var carouselEl = document.getElementById("carousel")
 
 var win = document.querySelector(".win");
@@ -46,18 +47,28 @@ let questions = [
         correctAnnswer: "seattle"
         
     },
+    {
+        title: 'where does it rain all the time ? ',
+        answers: [
+             'New York city',
+            'seattle',
+            'poop',
+            '900'] ,
+        correctAnnswer: "seattle"
+        
+    },
+    {
+        title: 'where does it rain all the time ? ',
+        answers: [
+             'New York city',
+            'seattle',
+            'poop',
+            '900'] ,
+        correctAnnswer: "seattle"
+        
+    },
 ]
  var index = 0;
- var carousel = {
-   
-    next: function (){
-        this.index += 1;
-      //  for (let index = 0; index > questions.length; index++) {
-        //    const elementq = array[index];
-            
-        }
-    
-    }
 
 
  $(".btn").each( function () {
@@ -83,29 +94,37 @@ const timerDisplay = () => {
    var countdown = setInterval(() => {
         timecount--;
         timerElement.innerHTML = timecount;
-        if (timecount >= 0) {
+       // if (timecount <= 0) {
 
-        }
+       // }
        
-        if (timecount === 0){
+        if (timecount <= 0){
             clearInterval(countdown);
+            endGameHide()
+        }  
+       
+            
 
-        }
         
     }, 1000);
 }
 
-    
 function checkAnwsers(event){
 console.log(event)
 if (event.target.textContent == questions[index].correctAnnswer){
-    winCounter++
-    win.textContent = winCounter
-} else {
-    loseCounter++
-    lose.textContent = loseCounter
+    winCounter++;
+    win.textContent = winCounter;
 
 }
+else {
+    loseCounter++
+    lose.textContent = loseCounter;
+    timecount = timecount -5;
+}  
+ if (timerElement === 0) {
+    endGameHide()
+    
+ }
 }
 
 
@@ -132,6 +151,17 @@ function showQuestions(){
      element.textContent = questions[index].answers[i]
      });
      
+}
+var wrapperEl = document.querySelector(".wrapper")
+function endGameHide (){
+    if 
+    (timecount <= 0)
+     wrapperEl.textContent = "GAME OVER LOSER";
+
+}
+function questionsAnswered (){
+    if
+    lastIndexOf.questions = 
 }
 
 function ChoiceQuestions(){
