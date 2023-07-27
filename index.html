@@ -12,40 +12,48 @@
     <header>
         <div id="game-start">The True Test of Javascript</div>
         <button class="start" onclick="startQuiz()">Start Quiz</button>
-      
-    </header>
-            
- <main id="hidden">
-    
-    <section class="app win_loss">
-        <div class="wrapper">
-        <h1>The true anime fan quiz</h1>
-        <div id="questions-show"></div>
 
-        <!--<div id="select-choice"-->
-        <button class="btn">next</button>
-        <button class="btn">next</button>
-        <button class="btn">next</button>
-        <button class="btn">next</button>
-        <!--</div>-->
-        </div>
-    </section>
-    <section>
-        <div class = "app win-loss-container">
-            <div>
-            <h2>Wins: <span class="win">0 </span> </h2>
-            <h2>Losses: <span class="lose">0</span></h2>
-          </div>
-    </section>
-    <section>
-        <div class="app timer">
-            <div class="timer-text">
-                <div class="large-font timer-count">60</div>
-                <h3>seconds remaining</h3>
-    </section>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="./assets/style.js"></script>
- </main> 
+    </header>
+
+    <main id="hidden">
+
+        <section class="app win_loss">
+            <section class="final_score app">
+                <label for="userName">Enter initials</label>
+                <input type="text" name="name" id="userName">
+                <button id="final_step">Log score</button>
+            </section>
+            <div id="outer-wrapper">
+                <div class="wrapper">
+                    <h1>The true anime fan quiz</h1>
+                    <div id="questions-show"></div>
+
+                    <!--<div id="select-choice"-->
+                    <button class="btn">next</button>
+                    <button class="btn">next</button>
+                    <button class="btn">next</button>
+                    <button class="btn">next</button>
+                    <!--</div>-->
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="app win-loss-container">
+                <div>
+                    <h2>Wins: <span class="win">0 </span> </h2>
+                    <h2>Losses: <span class="lose">0</span></h2>
+                </div>
+        </section>
+        <section>
+            <div class="app timer">
+                <div class="timer-text">
+                    <div class="large-font timer-count">60</div>
+                    <h3>seconds remaining</h3>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script src="./assets/style.js"></script>
+    </main>
 </body>
 
 </html>

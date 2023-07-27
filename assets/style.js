@@ -8,174 +8,157 @@ var choiceButtons = document.querySelectorAll(".btn");
 
 var timerElement = document.querySelector(".timer-count");
 
-var fillerEl = document.querySelector(".win_loss")
-//var carouselEl = document.getElementById("carousel")
-var displayEl = document.querySelector("large-font")
+var logScore = document.querySelector(".win_loss")
 
+//var displayEl = document.querySelector("large-font")
+
+var finalEl = document.querySelector(".final_score")
+var outerWrapper = document.getElementById("outer-wrapper")
+var wrapperEl = document.querySelector(".wrapper")
 var win = document.querySelector(".win");
 var lose = document.querySelector(".lose");
+var currentQuestionindex = 0;
 var winCounter = 0;
 var loseCounter = 0;
-
+var timecount = 60;
+var index = 0;
+var countdown;
 let questions = [
     {
-        title: 'where was the first ever comic con held on record ? ',
+        title: 'What is a string? ',
         answers: [
-            'New York city',
-            'seattle',
-            'sandigio',
-            '900'],
-        correctAnnswer: "New York city"
+            'An object that represents a number of character values.',
+            'True or false value.',
+            'A fuction.',
+            'All the above.'],
+        correctAnswer: "An object that represents a number of character values."
 
     },
     {
-        title: 'what is biggest comic con ? ',
+        title: 'How do you link java to html ? ',
         answers: [
-            'kill van kull',
-            'seattle',
-            'sandigio',
-            '900'],
-        correctAnnswer: "sandigio"
+            'quearySelector',
+            'id ',
+            'class ',
+            'All the above'],
+        correctAnswer: "All the above"
 
     },
     {
-        title: 'where does it rain all the time ? ',
+        title: 'What is a boolean ? ',
         answers: [
-            'New York city',
-            'seattle',
-            'poop',
-            '900'],
-        correctAnnswer: "seattle"
+            'How to log out of java',
+            'How to log into java',
+            'One that can either be TRUE or FALSE.',
+            'A list of numbers.'],
+        correctAnswer: "One that can either be TRUE or FALSE."
 
     },
     {
-        title: 'where does it rain all the time ? ',
+        title: 'How do you get java to link to HTML? ',
         answers: [
-            'New York city',
-            'seattle',
-            'poop',
-            '900'],
-        correctAnnswer: "seattle"
+            'Just creat another file in code.',
+            'Link to bottom of body tag.',
+            'Link to CSS file.',
+            'There is no need to link.'],
+        correctAnswer: "Link to bottom of body tag."
 
     },
     {
-        title: 'where does it rain all the time ? ',
+        title: ' What is global scope in javascript? ',
         answers: [
-            'New York city',
-            'seattle',
-            'poop',
-            '900'],
-        correctAnnswer: "seattle"
-
+            'How to consol log.',
+            'is the context where everything in a Javascript program executes by default.',
+            'Variables that are declared inside a function are called local variables and in the function scope.',
+            'It links images to java.'],
+        correctAnswer: "is the context where everything in a Javascript program executes by default."
     },
 ]
-var index = 0;
-
 
 $(".btn").each(function () {
-    // var btn = event.target;
     $(this).on("click", function (event) {
         checkAnwsers(event)
         index++
-        showQuestions()
+        if (index === questions.length) {
+           clearInterval(countdown);
+           completeEl() 
+        }
+        else {
+            showQuestions()
+        }
     })
-    // if (btn.classList.includes("next")) {
-    // carousel.next
-    //}
-    //if (btn.hasClass("next")) {
-    //   carousel.next();
-
-    //}
-
-
 });
 
-var timecount = 60;
 const timerDisplay = () => {
-    var countdown = setInterval(() => {
+    countdown = setInterval(() => {
         timecount--;
         timerElement.innerHTML = timecount;
-        // if (timecount <= 0) {
-
-        // }
-
         if (timecount <= 0) {
             clearInterval(countdown);
             endGameHide()
         }
-
-
-
-
     }, 1000);
 }
 
 function checkAnwsers(event) {
     console.log(event)
-    if (event.target.textContent == questions[index].correctAnnswer) {
+    if (event.target.textContent == questions[index].correctAnswer) {
         winCounter++;
         win.textContent = winCounter;
-        displayEl.textContent = "Correct"
-
-
     }
     else {
         loseCounter++
         lose.textContent = loseCounter;
         timecount = timecount - 5;
     }
-    if (timerElement === 0) {
-        endGameHide()
-
-    }
 }
-
-
 function startQuiz() {
     var element = document.getElementById("hidden");
     element.classList.add("secshow");
     start.style.display = "none";
     showQuestions();
     timerDisplay();
-    console.log(startQuiz);
+    completeEl();
+    //finalEl.style.display = "none"
 }
-function getQuestion() {
 
-
-}
-var currentQuestionindex = 0
 function showQuestions() {
-
-    // var titleEl = document.getElementById('title');
-    // titleEl.textContent = questions.title;
-
     questionsElement.textContent = questions[index].title;
 
     let choice = document.querySelectorAll('.btn');
     choice.forEach(function (element, i) {
         element.textContent = questions[index].answers[i]
     })
+};
 
-
-}
-var wrapperEl = document.querySelector(".wrapper")
 function endGameHide() {
     if
         (timecount <= 0)
-        wrapperEl.textContent = "GAME OVER LOSER";
+        //wrapperEl.style.visibility = "hidden";
+        wrapperEl.textContent = "GAME OVER LOSER  " + `you scored ${winCounter} out of ${questions.length}!`;
+       
+        
+      
+       
+};
 
-}
-function questionsAnswered() {
+function completeEl() {
+    if (index < questions.length){
+    finalEl.style.display = "none"
+    } 
+    else {
+        (index === questions.length)
+         
+       finalEl.style.display = 'block'
+       // outerWrapper.textContent = "Completed OOOH YEAH";
+        outerWrapper.textContent = "Completed OOOH YEAH   " +`you scored ${winCounter} out of ${questions.length}!`;
+       // outerWrapper.style.display = "block";
+       } 
 
-}
+    
+};
 
-function ChoiceQuestions() {
 
-    //selectChoiceElement.textContent = questions[0].answers;
-    //answers = questions.question.answers
-    //answers = choiceButtons
-    // for(var i = 0; i < questions.answers.lenght; i++) {
-    //  choiceButtons.textContent = questions.answers[i].Text; 
-    //  }
+function finishIt(){
 
 }
