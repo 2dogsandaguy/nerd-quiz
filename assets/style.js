@@ -5,12 +5,13 @@ var questionsElement = document.getElementById("questions-show");
 var selectChoiceElement = document.getElementById("select-choice");
 
 var choiceButtons = document.querySelectorAll(".btn");
-
+var timerEnd = document.getElementById("timer-end")
 var timerElement = document.querySelector(".timer-count");
 
 var logScore = document.querySelector(".win_loss")
-
+var finalStep = document.getElementById("final_step")
 //var displayEl = document.querySelector("large-font")
+var userName = document.querySelector("#user-name")
 
 var finalEl = document.querySelector(".final_score")
 var outerWrapper = document.getElementById("outer-wrapper")
@@ -23,6 +24,7 @@ var loseCounter = 0;
 var timecount = 60;
 var index = 0;
 var countdown;
+
 let questions = [
     {
         title: 'What is a string? ',
@@ -81,7 +83,7 @@ $(".btn").each(function () {
         index++
         if (index === questions.length) {
            clearInterval(countdown);
-           completeEl() 
+           completeEl()    
         }
         else {
             showQuestions()
@@ -97,12 +99,16 @@ const timerDisplay = () => {
             clearInterval(countdown);
             endGameHide()
         }
+        
     }, 1000);
 }
 
+function scoreTimer (){
+    timerElement = timerDisplay
+}
 function checkAnwsers(event) {
     console.log(event)
-    if (event.target.textContent == questions[index].correctAnswer) {
+    if (event.target.textContent === questions[index].correctAnswer) {
         winCounter++;
         win.textContent = winCounter;
     }
@@ -148,17 +154,31 @@ function completeEl() {
     } 
     else {
         (index === questions.length)
-         
        finalEl.style.display = 'block'
-       // outerWrapper.textContent = "Completed OOOH YEAH";
-        outerWrapper.textContent = "Completed OOOH YEAH   " +`you scored ${winCounter} out of ${questions.length}!`;
-       // outerWrapper.style.display = "block";
-       } 
-
-    
+        outerWrapper.textContent = "Completed OOOH YEAH   " +`Questions right ${winCounter} out of ${questions.length}!`;
+       }       
 };
+var playerScore = {playerName:"",winCounter:0}
+var getScores = [];
+finalStep.addEventListener("click", ()=>{
+var storedScores = JSON.parse(localStorage.getItem("winCounter"));
 
+if (storedScores !== null) {
 
-function finishIt(){
+ getScores = storedScores;
+    }
+    else {}
 
+  //add another fuction renders to the getscore to the web page
+  playerScore.playerName = userName.value
+  playerScore.winCounter = winCounter
+  getScores.push(playerScore)
+  console.log(getScores)
+  localStorage.setItem("winCounter",JSON.stringify(getScores))
+});
+
+function renderScore() {
+    // Clear todoList element and update todoCountSpan
+    playerScore.innerHTML = "";
+    todoCountSpan.textContent = getScores.length;
 }
