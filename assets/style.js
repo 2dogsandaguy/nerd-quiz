@@ -1,23 +1,20 @@
 const start = document.querySelector(".start");
-
 var questionsElement = document.getElementById("questions-show");
-
 var selectChoiceElement = document.getElementById("select-choice");
-
 var choiceButtons = document.querySelectorAll(".btn");
-var timerEnd = document.getElementById("timer-end")
+var timerEnd = document.getElementById("timer-end");
 var timerElement = document.querySelector(".timer-count");
-
-var logScore = document.querySelector(".win_loss")
-var finalStep = document.getElementById("final_step")
-//var displayEl = document.querySelector("large-font")
-var userName = document.querySelector("#user-name")
-
-var finalEl = document.querySelector(".final_score")
-var outerWrapper = document.getElementById("outer-wrapper")
-var wrapperEl = document.querySelector(".wrapper")
+var logScore = document.querySelector(".win_loss");
+var finalStep = document.getElementById("final_step");
+var userName = document.querySelector("#user-name");
+var finalEl = document.querySelector(".final_score");
+var outerWrapper = document.getElementById("outer-wrapper");
+var wrapperEl = document.querySelector(".wrapper");
 var win = document.querySelector(".win");
 var lose = document.querySelector(".lose");
+var hideButton = document.getElementById("hide-button");
+var playerScore = {playerName:"",timecount:60};
+var getScores = [];
 var currentQuestionindex = 0;
 var winCounter = 0;
 var loseCounter = 0;
@@ -76,20 +73,14 @@ let questions = [
         correctAnswer: "is the context where everything in a Javascript program executes by default."
     },
 ]
-
-$(".btn").each(function () {
-    $(this).on("click", function (event) {
-        checkAnwsers(event)
-        index++
-        if (index === questions.length) {
-           clearInterval(countdown);
-           completeEl()    
-        }
-        else {
-            showQuestions()
-        }
-    })
-});
+function startQuiz() {
+    var element = document.getElementById("hidden");
+    element.classList.add("secshow");
+    start.style.display = "none";
+    showQuestions();
+    timerDisplay();
+    completeEl();
+};
 
 const timerDisplay = () => {
     countdown = setInterval(() => {
@@ -97,15 +88,34 @@ const timerDisplay = () => {
         timerElement.innerHTML = timecount;
         if (timecount <= 0) {
             clearInterval(countdown);
-            endGameHide()
+            endGameHide();
         }
         
     }, 1000);
-}
+};
 
-   function scoreTimer (){
-    timerElement = timerDisplay
-}
+$(".btn").each(function () {
+    $(this).on("click", function (event) {
+        checkAnwsers(event);
+        index++
+        if (index === questions.length) {
+           clearInterval(countdown);
+           completeEl();   
+        }
+        else {
+            showQuestions();
+        }
+    })
+});
+
+function showQuestions() {
+    questionsElement.textContent = questions[index].title;
+
+    let choice = document.querySelectorAll('.btn');
+    choice.forEach(function (element, i) {
+        element.textContent = questions[index].answers[i]
+    })
+};
 function checkAnwsers(event) {
     console.log(event)
     if (event.target.textContent === questions[index].correctAnswer) {
@@ -117,35 +127,11 @@ function checkAnwsers(event) {
         lose.textContent = loseCounter;
         timecount = timecount - 5;
     }
-}
-function startQuiz() {
-    var element = document.getElementById("hidden");
-    element.classList.add("secshow");
-    start.style.display = "none";
-    showQuestions();
-    timerDisplay();
-    completeEl();
-    //finalEl.style.display = "none"
-}
-
-function showQuestions() {
-    questionsElement.textContent = questions[index].title;
-
-    let choice = document.querySelectorAll('.btn');
-    choice.forEach(function (element, i) {
-        element.textContent = questions[index].answers[i]
-    })
 };
-
 function endGameHide() {
     if
         (timecount <= 0)
-        //wrapperEl.style.visibility = "hidden";
-        wrapperEl.textContent = "GAME OVER LOSER  " + `you scored ${winCounter} out of ${questions.length}!`;
-       
-        
-      
-       
+        wrapperEl.textContent = "GAME OVER LOSER  " + `you scored ${winCounter} out of ${questions.length}!`;    
 };
 
 function completeEl() {
@@ -158,39 +144,27 @@ function completeEl() {
         outerWrapper.textContent = "Completed OOOH YEAH   " +`Questions right ${winCounter} out of ${questions.length}!`;
        } 
 };
-var hideButton = document.getElementById("hide-button")
-var playerScore = {playerName:"",timecount:60}
-var getScores = [];
+
 finalStep.addEventListener("click", ()=>{
-var storedScores = JSON.parse(localStorage.getItem("timecount"));
+    var storedScores = JSON.parse(localStorage.getItem("timecount"));
 
-if (storedScores !== null) {
+    if (storedScores !== null) {
 
- getScores = storedScores;
-    }
-    else {}
+            getScores = storedScores;
+        }
 
-  //add another fuction renders to the getscore to the web page
-  playerScore.playerName = userName.value
-  playerScore.timecount = timecount
-  getScores.push(playerScore)
-  console.log(getScores)
-  localStorage.setItem("timecount",JSON.stringify(getScores))
-  hideButton.style.display ="none"
-  renderScores()
+    playerScore.playerName = userName.value;
+    playerScore.timecount = timecount;
+    getScores.push(playerScore);
+    console.log(getScores);
+    localStorage.setItem("timecount",JSON.stringify(getScores));
+    hideButton.style.display ="none";
+    renderScores();
 });
-//var todoList =
-//function renderScore() {
- //   todoList.innerHTML = "";
 
-   // for (var i = 0; i < getScores.length; i++) 
-
-    //var li = document.createElement("li");
-   // li.textContent = getScores;
-    //li.setAttribute("data-index", i);
-//}
 var storedScores = JSON.parse(localStorage.getItem("timecount"));
 function renderScores() {
+    storedScores = JSON.parse(localStorage.getItem("timecount"));
     var scoresList = document.getElementById("scores-list"); 
   
    
@@ -202,9 +176,4 @@ function renderScores() {
       listItem.textContent = score.playerName + ": " + score.timecount + " seconds";
       scoresList.appendChild(listItem);
     });
-  }
-  
-  
-  document.addEventListener("DOMContentLoaded", function () {
-    renderScores();
-  });
+  };
