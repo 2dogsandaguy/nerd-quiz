@@ -103,7 +103,7 @@ const timerDisplay = () => {
     }, 1000);
 }
 
-function scoreTimer (){
+   function scoreTimer (){
     timerElement = timerDisplay
 }
 function checkAnwsers(event) {
@@ -156,12 +156,13 @@ function completeEl() {
         (index === questions.length)
        finalEl.style.display = 'block'
         outerWrapper.textContent = "Completed OOOH YEAH   " +`Questions right ${winCounter} out of ${questions.length}!`;
-       }       
+       } 
 };
-var playerScore = {playerName:"",winCounter:0}
+var hideButton = document.getElementById("hide-button")
+var playerScore = {playerName:"",timecount:60}
 var getScores = [];
 finalStep.addEventListener("click", ()=>{
-var storedScores = JSON.parse(localStorage.getItem("winCounter"));
+var storedScores = JSON.parse(localStorage.getItem("timecount"));
 
 if (storedScores !== null) {
 
@@ -171,14 +172,39 @@ if (storedScores !== null) {
 
   //add another fuction renders to the getscore to the web page
   playerScore.playerName = userName.value
-  playerScore.winCounter = winCounter
+  playerScore.timecount = timecount
   getScores.push(playerScore)
   console.log(getScores)
-  localStorage.setItem("winCounter",JSON.stringify(getScores))
+  localStorage.setItem("timecount",JSON.stringify(getScores))
+  hideButton.style.display ="none"
+  renderScores()
 });
+//var todoList =
+//function renderScore() {
+ //   todoList.innerHTML = "";
 
-function renderScore() {
-    // Clear todoList element and update todoCountSpan
-    playerScore.innerHTML = "";
-    todoCountSpan.textContent = getScores.length;
-}
+   // for (var i = 0; i < getScores.length; i++) 
+
+    //var li = document.createElement("li");
+   // li.textContent = getScores;
+    //li.setAttribute("data-index", i);
+//}
+var storedScores = JSON.parse(localStorage.getItem("timecount"));
+function renderScores() {
+    var scoresList = document.getElementById("scores-list"); 
+  
+   
+    scoresList.innerHTML = "";
+  
+
+    storedScores.forEach(function (score) {
+      var listItem = document.createElement("li");
+      listItem.textContent = score.playerName + ": " + score.timecount + " seconds";
+      scoresList.appendChild(listItem);
+    });
+  }
+  
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    renderScores();
+  });
