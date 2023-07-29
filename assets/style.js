@@ -13,7 +13,8 @@ var wrapperEl = document.querySelector(".wrapper");
 var win = document.querySelector(".win");
 var lose = document.querySelector(".lose");
 var hideButton = document.getElementById("hide-button");
-var playerScore = {playerName:"",timecount:60};
+var startInfo = document. getElementById("info-sec")
+var playerScore = { playerName: "", timecount: 60 };
 var getScores = [];
 var currentQuestionindex = 0;
 var winCounter = 0;
@@ -77,6 +78,7 @@ function startQuiz() {
     var element = document.getElementById("hidden");
     element.classList.add("secshow");
     start.style.display = "none";
+    startInfo.style.display= "none";
     showQuestions();
     timerDisplay();
     completeEl();
@@ -90,7 +92,7 @@ const timerDisplay = () => {
             clearInterval(countdown);
             endGameHide();
         }
-        
+
     }, 1000);
 };
 
@@ -99,8 +101,8 @@ $(".btn").each(function () {
         checkAnwsers(event);
         index++
         if (index === questions.length) {
-           clearInterval(countdown);
-           completeEl();   
+            clearInterval(countdown);
+            completeEl();
         }
         else {
             showQuestions();
@@ -117,7 +119,6 @@ function showQuestions() {
     })
 };
 function checkAnwsers(event) {
-    console.log(event)
     if (event.target.textContent === questions[index].correctAnswer) {
         winCounter++;
         win.textContent = winCounter;
@@ -131,49 +132,44 @@ function checkAnwsers(event) {
 function endGameHide() {
     if
         (timecount <= 0)
-        wrapperEl.textContent = "GAME OVER LOSER  " + `you scored ${winCounter} out of ${questions.length}!`;    
+        wrapperEl.textContent = "GAME OVER LOSER  " + `you scored ${winCounter} out of ${questions.length}!`;
 };
 
 function completeEl() {
-    if (index < questions.length){
-    finalEl.style.display = "none"
-    } 
+    if (index < questions.length) {
+        finalEl.style.display = "none"
+    }
     else {
         (index === questions.length)
-       finalEl.style.display = 'block'
-        outerWrapper.textContent = "Completed OOOH YEAH   " +`Questions right ${winCounter} out of ${questions.length}!`;
-       } 
+        finalEl.style.display = 'block'
+        outerWrapper.textContent = "Completed OOOH YEAH   " + `Questions right ${winCounter} out of ${questions.length}!`;
+    }
 };
 
-finalStep.addEventListener("click", ()=>{
+finalStep.addEventListener("click", () => {
     var storedScores = JSON.parse(localStorage.getItem("timecount"));
 
     if (storedScores !== null) {
 
-            getScores = storedScores;
-        }
+        getScores = storedScores;
+    }
 
     playerScore.playerName = userName.value;
     playerScore.timecount = timecount;
     getScores.push(playerScore);
-    console.log(getScores);
-    localStorage.setItem("timecount",JSON.stringify(getScores));
-    hideButton.style.display ="none";
+    localStorage.setItem("timecount", JSON.stringify(getScores));
+    hideButton.style.display = "none";
     renderScores();
 });
 
 var storedScores = JSON.parse(localStorage.getItem("timecount"));
 function renderScores() {
     storedScores = JSON.parse(localStorage.getItem("timecount"));
-    var scoresList = document.getElementById("scores-list"); 
-  
-   
+    var scoresList = document.getElementById("scores-list");
     scoresList.innerHTML = "";
-  
-
     storedScores.forEach(function (score) {
-      var listItem = document.createElement("li");
-      listItem.textContent = score.playerName + ": " + score.timecount + " seconds";
-      scoresList.appendChild(listItem);
+        var listItem = document.createElement("li");
+        listItem.textContent = score.playerName + ": " + score.timecount + " seconds";
+        scoresList.appendChild(listItem);
     });
-  };
+};
