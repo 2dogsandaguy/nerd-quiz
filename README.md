@@ -38,7 +38,7 @@ https://www.youtube.com/watch?v=duNmhKgtcsI
 
 
 
-link to site:
+link to site:https://2dogsandaguy.github.io/nerd-quiz/
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
